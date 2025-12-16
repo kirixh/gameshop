@@ -1,11 +1,22 @@
 import { Link } from 'react-router-dom';
 import { css, StyleSheet } from "aphrodite";
+import { MEDIA_BASE } from '../services/config';
 
-export function GameItem({ id, name, photo }) {
+export function GameItem({ id, name, photo, showTitle = true }) {
     const basePhoto = photo ? photo : '';
-    const bg = basePhoto
-        ? (basePhoto.startsWith('http') ? basePhoto : 'http://127.0.0.1:8000' + basePhoto)
-        : '';
+    let bg = '';
+
+    if (basePhoto) {
+        if (basePhoto.startsWith('http')) {
+            bg = basePhoto;
+        } else {
+            // Снимаем префиксы / или /media/
+            const normalized = basePhoto
+                .replace(/^\/?media\//, '')
+                .replace(/^\/+/, '');
+            bg = `${MEDIA_BASE}/${normalized}`;
+        }
+    }
 
     const styles = StyleSheet.create({
         game: {
@@ -24,7 +35,7 @@ export function GameItem({ id, name, photo }) {
         <Link className='game-link' to={`/games/${id}`}>
             <section className={'roundable ' + css(styles.game)}>
                 {
-                    name ?
+                    name && showTitle ?
                     <div className={'title-field'}>
                         <h1>{name}</h1>
                     </div> : ''

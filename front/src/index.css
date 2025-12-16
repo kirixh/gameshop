@@ -90,6 +90,39 @@ body {
   border-color: #61dafb;
 }
 
+.loader-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+.profile-balance {
+  padding: 12px 16px;
+  background: #222;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 700;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.status-text {
+  width: 100%;
+  text-align: center;
+  padding: 24px 16px;
+  color: #4a4f55;
+  background: #f8f9fa;
+  border: 1px dashed #c3c8d1;
+  border-radius: 10px;
+}
+
+.status-text.error {
+  color: #b71c1c;
+  border-color: #e57373;
+  background: #fff5f5;
+}
+
 @media (max-width: 1024px) {
   .main-aside {
     width: 100%;
@@ -165,6 +198,13 @@ body {
   flex-direction: column;
   align-content: space-between;
   text-align: left;
+}
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
 }
 
 .main-footer {

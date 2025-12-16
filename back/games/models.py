@@ -6,6 +6,7 @@ class Games(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     description = models.TextField(blank=True)
     photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True)
     category = models.ForeignKey('Category', on_delete=models.PROTECT, null=True)

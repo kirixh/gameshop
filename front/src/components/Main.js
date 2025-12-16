@@ -1,45 +1,50 @@
 import { useEffect, useState } from 'react';
 import { ajaxService } from '../services/ajaxService';
-import { GameItem } from './GameItem'
+import { GameItem } from './GameItem';
+import { Loader } from './loader/Loader';
 
 export function Main() {
-    const [games, setGames] = useState(null);
+    const [gamesData, setGamesData] = useState([]);
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        ajaxService('/games/categories/').then((data) => {
-            setCategories(data.categories || []);
-        });
+        ajaxService('/games/categories/')
+            .then((data) => setCategories(data.categories || []))
+            .catch((err) => setError(err.message));
     }, []);
 
     useEffect(() => {
+        setLoading(true);
+        setError(null);
+
         const params = [];
+        const term = searchTerm.trim();
         if (selectedCategory !== 'all') {
             params.push(`category_id=${selectedCategory}`);
         }
-        if (searchTerm.trim()) {
-            params.push(`search=${encodeURIComponent(searchTerm.trim())}`);
+        if (term) {
+            params.push(`search=${encodeURIComponent(term)}`);
         }
         const query = params.length ? `?${params.join('&')}` : '';
 
-        ajaxService(`/games/${query}`).then((data) => {
-            const games = [];
-            data.forEach((game) => {
-                const gameElement = (
-                    <GameItem
-                        key={game.id}
-                        id={game.id}
-                        name={game.name}
-                        photo={game.photo}
-                    />
-                );
-                games.push(gameElement);
-            });
+        const timer = setTimeout(() => {
+            ajaxService(`/games/${query}`)
+                .then((data) => {
+                    setGamesData(data || []);
+                    setLoading(false);
+                })
+                .catch((err) => {
+                    setGamesData([]);
+                    setError(err.message);
+                    setLoading(false);
+                });
+        }, 300);
 
-            setGames(games);
-        });
+        return () => clearTimeout(timer);
     }, [selectedCategory, searchTerm]);
 
     function handleCategoryChange(event) {
@@ -69,7 +74,23 @@ export function Main() {
                 </div>
             </div>
             <div className='game-grid'>
-                {games}
+                {loading && (
+                    <div className='loader-wrap'>
+                        <Loader />
+                    </div>
+                )}
+                {error && !loading && <div className='status-text error'>{error}</div>}
+                {!loading && !error && gamesData.length === 0 && (
+                    <div className='status-text'>Ничего не найдено</div>
+                )}
+                {!loading && !error && gamesData.map((game) => (
+                    <GameItem
+                        key={game.id}
+                        id={game.id}
+                        name={game.name}
+                        photo={game.photo}
+                    />
+                ))}
             </div>
         </aside>
     );
