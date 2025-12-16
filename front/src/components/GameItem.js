@@ -10,7 +10,6 @@ export function GameItem({ id, name, photo, showTitle = true }) {
         if (basePhoto.startsWith('http')) {
             bg = basePhoto;
         } else {
-            // Снимаем префиксы / или /media/
             const normalized = basePhoto
                 .replace(/^\/?media\//, '')
                 .replace(/^\/+/, '');

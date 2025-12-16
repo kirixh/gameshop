@@ -159,7 +159,7 @@ export function Game() {
                             {game && buyed ? 'Твои достижения: ' + achievements : ''}
                         </h3>
                         <h3>
-                            {game && buyed ? 'Затрачено времени: ' + spentHours + ' часов' : ''}
+                            {game && buyed ? 'Вы играли ' + spentHours + ' часов' : ''}
                         </h3>
                     </div>
                 </div>
