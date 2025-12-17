@@ -128,7 +128,7 @@ export function Game() {
                             {wishlistItemId ? 'Убрать из желаемого' : 'В желаемое'}
                         </button>
                     </div>
-                    {error && <div className="status-text error">{error}</div>}
+                    {error && <div className="status-text error" style={{marginTop: '10px'}}>{error}</div>}
                 </div>
                 <div className={'description-field'}>
                     <div>

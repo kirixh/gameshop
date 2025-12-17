@@ -32,34 +32,40 @@ export function MyGames() {
 
     return (
         <React.Fragment>
-            <div className="profile-balance">
-                Баланс: {balance} ₽
+            <div className="profile-section">
+                <div className="profile-balance">
+                    Баланс: {balance} ₽
+                </div>
             </div>
 
-            <h3>Купленные игры</h3>
-            <div className="game-grid">
-                {games.length === 0 && <div className='status-text'>Пока нет купленных игр</div>}
-                {games.map((game) => (
-                    <GameItem
-                        key={game.id}
-                        id={game.id}
-                        name={game.name}
-                        photo={game.photo}
-                    />
-                ))}
+            <div className="profile-section">
+                <h3 className="profile-heading">Купленные игры</h3>
+                <div className="game-grid">
+                    {games.length === 0 && <div className='status-text'>Пока нет купленных игр</div>}
+                    {games.map((game) => (
+                        <GameItem
+                            key={game.id}
+                            id={game.id}
+                            name={game.name}
+                            photo={game.photo}
+                        />
+                    ))}
+                </div>
             </div>
 
-            <h3>Список желаемого</h3>
-            <div className="game-grid">
-                {wishlist.length === 0 && <div className='status-text'>Пока пусто</div>}
-                {wishlist.map((game) => (
-                    <GameItem
-                        key={game.id}
-                        id={game.id}
-                        name={game.name}
-                        photo={game.photo}
-                    />
-                ))}
+            <div className="profile-section">
+                <h3 className="profile-heading">Список желаемого</h3>
+                <div className="game-grid">
+                    {wishlist.length === 0 && <div className='status-text'>Пока пусто</div>}
+                    {wishlist.map((game) => (
+                        <GameItem
+                            key={game.id}
+                            id={game.id}
+                            name={game.name}
+                            photo={game.photo}
+                        />
+                    ))}
+                </div>
             </div>
         </React.Fragment>
     );

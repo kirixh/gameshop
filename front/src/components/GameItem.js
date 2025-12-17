@@ -21,12 +21,16 @@ export function GameItem({ id, name, photo, showTitle = true }) {
         game: {
             position: "relative",
             width: "350px",
-            height: "350px",
+            height: "300px",
             backgroundColor: "grey",
             marginBottom: "10px",
             background: bg ? `url(${bg})` : "grey",
             backgroundPosition: "center",
-            backgroundSize: "cover"
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end"
         }
     });
 

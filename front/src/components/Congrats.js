@@ -1,7 +1,10 @@
 export function Congrats() {
     return (
-        <div className="big-text">
-            <h1>Congratulations!</h1>
-        </div>
-        );
+        <aside className="info-wrapper">
+            <h1 className="info-title">Congratulations!</h1>
+            <p className="info-body">
+                Покупка оформлена. Игра появится в вашем профиле, а статистика — в разделе «Мой профиль».
+            </p>
+        </aside>
+    );
 }
