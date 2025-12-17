@@ -1,0 +1,63 @@
+version: "3.8"
+
+services:
+    postgres:
+        image: postgres:16
+        container_name: postgres16
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: postgres
+            POSTGRES_DB: postgres
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres_data:/var/lib/postgresql/data
+        restart: unless-stopped
+        networks:
+            - app-network
+
+    backend:
+        build: ./back
+        command: sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+        environment:
+            SECRET_KEY: devsecret
+            DATABASE_NAME: postgres
+            DATABASE_USER: postgres
+            DATABASE_PASS: postgres
+            DATABASE_HOST: postgres
+            DATABASE_PORT: 5432
+        volumes:
+            - ./back:/app
+            - media_data:/app/media
+        ports:
+            - "8000:8000"
+        depends_on:
+            - postgres
+        networks:
+            - app-network
+
+    frontend:
+        build: ./front
+        command: npm start -- --host 0.0.0.0 --port 3000
+        environment:
+            REACT_APP_API_URL: http://localhost:8000/api/v1
+            REACT_APP_MEDIA_URL: http://localhost:8000/media
+        volumes:
+            - ./front:/app
+            - /app/node_modules
+        ports:
+            - "3000:3000"
+        depends_on:
+            - backend
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    postgres_data:
+        driver: local
+    media_data:
+        driver: local
