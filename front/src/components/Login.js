@@ -32,26 +32,38 @@ export function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            {error && <p style={{"color": "red"}}>{error}</p>}
-            <label>
-                Username:
-                <input type="username" value={username} onChange={(event) => setUsername(event.target.value)}/>
-            </label>
-            <br/>
-            <label>
-                Password:
-                <input
-                    type="password" value={password} onChange={(event) => setPassword(event.target.value)}
-                />
-            </label>
-            <br/>
-            <button className="submit-button" type="submit">Log In</button>
-            <Link to="/register">Register</Link>
-        </form>
+        <div className="auth-card">
+            <h2 className="auth-title">Вход</h2>
+            <p className="auth-subtitle">Продолжайте покупать игры и следить за прогрессом</p>
+            {error && <div className="status-text error">{error}</div>}
+            <form onSubmit={handleSubmit} className="auth-form">
+                <label className="auth-label">
+                    <span>Логин</span>
+                    <input
+                        type="text"
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                        placeholder="Введите логин"
+                    />
+                </label>
+                <label className="auth-label">
+                    <span>Пароль</span>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        placeholder="Введите пароль"
+                    />
+                </label>
+                <button className="submit-button" type="submit">Войти</button>
+            </form>
+            <div className="auth-footer">
+                <span>Нет аккаунта?</span> <Link to="/register">Зарегистрироваться</Link>
+            </div>
+        </div>
     );
 }
 
 export function Login() {
-    return <aside className="main-aside"><LoginForm/></aside>;
+    return <aside className="main-aside auth-wrapper"><LoginForm/></aside>;
 }

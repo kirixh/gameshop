@@ -107,6 +107,79 @@ body {
   margin-bottom: 12px;
 }
 
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-card {
+  width: 420px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #d7dee5;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #202124;
+}
+
+.auth-subtitle {
+  margin: 0;
+  color: #5f6368;
+  font-size: 14px;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  color: #202124;
+}
+
+.auth-label input {
+  border: 1px solid #c3c8d1;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.auth-label input:focus {
+  outline: 2px solid #61dafb;
+  border-color: #61dafb;
+}
+
+.auth-footer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 6px;
+  color: #5f6368;
+  font-size: 14px;
+}
+
+.auth-footer a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
 .status-text {
   width: 100%;
   text-align: center;

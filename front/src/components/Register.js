@@ -1,6 +1,5 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import {useState} from "react";
 
 export function RegisterForm() {
     const [username, setUsername] = useState('');
@@ -18,11 +17,11 @@ export function RegisterForm() {
         })
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error('Удостоверьтесь, что пароль достаточно безопасен. Также проверьте корректность введённых данных.');
+                    throw new Error('Не удалось зарегистрироваться. Проверьте данные и попробуйте ещё раз.');
                 }
                 return response.json();
             })
-            .then((data) => {
+            .then(() => {
                 window.location.href = '/login';
             })
             .catch((error) => {
@@ -31,34 +30,48 @@ export function RegisterForm() {
     }
 
     return (
-        <React.Fragment>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input type="username" value={username} onChange={(event) => setUsername(event.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Email:
-                    <input type="email" value={email} onChange={(event) => setEmail(event.target.value)}/>
-                </label>
-                <br/>
-                <label>
-                    Password:
+        <div className="auth-card">
+            <h2 className="auth-title">Регистрация</h2>
+            <p className="auth-subtitle">Создайте аккаунт, чтобы покупать игры и отслеживать прогресс</p>
+            {error && <div className="status-text error">{error}</div>}
+            <form onSubmit={handleSubmit} className="auth-form">
+                <label className="auth-label">
+                    <span>Логин</span>
                     <input
-                        type="password" value={password} onChange={(event) => setPassword(event.target.value)}
+                        type="text"
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                        placeholder="Введите логин"
                     />
                 </label>
-                <br/>
-                <button className="submit-button" type="submit">Register</button>
-                <Link to="/login">Log in</Link>
+                <label className="auth-label">
+                    <span>Email</span>
+                    <input
+                        type="email"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        placeholder="example@mail.com"
+                    />
+                </label>
+                <label className="auth-label">
+                    <span>Пароль</span>
+                    <input
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                        placeholder="Придумайте пароль"
+                    />
+                </label>
+                <button className="submit-button" type="submit">Зарегистрироваться</button>
             </form>
-            <p>{error && <p style={{"color": "red"}}>{error}</p>}</p>
-        </React.Fragment>
+            <div className="auth-footer">
+                <span>Уже есть аккаунт?</span> <Link to="/login">Войти</Link>
+            </div>
+        </div>
     );
 }
 
 
 export function Register() {
-    return <aside className="main-aside"><RegisterForm/></aside>;
+    return <aside className="main-aside auth-wrapper"><RegisterForm/></aside>;
 }
