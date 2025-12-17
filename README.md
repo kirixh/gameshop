@@ -7,11 +7,11 @@
 ## Запустить можно локально и через docker:
 
 ### Docker
-* docker compose up -d в корне проекта
+* `docker compose up -d` в корне проекта
 
 ### Локально:
-* В папке front - npm start;
+* В папке front - `npm start`
 * В папке back:
-  * Желательно создать venv, в нем выполнить pip install --no-cache-dir -r requirements.txt
-  * python manage.py migrate
-  * python manage.py runserver 8000
+  * Желательно создать venv, в нем выполнить `pip install --no-cache-dir -r requirements.txt`
+  * `python manage.py migrate`
+  * `python manage.py runserver 8000`
