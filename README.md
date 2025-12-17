@@ -15,3 +15,4 @@
   * Желательно создать venv, в нем выполнить `pip install --no-cache-dir -r requirements.txt`
   * `python manage.py migrate`
   * `python manage.py runserver 8000`
+  * Дополнительно, можно загрузить демо-данные на бек через скрипт `python manage.py shell < seed_sample_data.py`
